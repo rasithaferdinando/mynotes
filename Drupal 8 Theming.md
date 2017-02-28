@@ -56,13 +56,33 @@ libraries:
 
 ## Drupal 8 Theming - Part 02 - Disable Cache, Enable Twig Debug
 
-- Drupal’s core templates are in /core/modules/system/templates
+- Drupal’s core templates are in `/core/modules/system/templates`
 - The content for the clean templates at this moment displayed from page.html.twig
 - Twig - templating language drupal uses
-- To edit this content, copy this file and paste it in endymion folder
+- To edit this content, copy this file and paste it inside endymion folder
 
 #### Disable cache and enable twig debugging
-- copy `sites/example.settings.local.php` to `default` folder and rename it to `settings.local.php`. This is the local developing settings. These will be turned off once the site goes live
-- To disable the cache uncomment the following line
+- *Have a local local developing settings config*: copy `sites/example.settings.local.php` to `sites/default/` folder and rename it to `settings.local.php`. This will be turned off once the site goes live.
+- *Disable the cache*: uncomment the following line in `settings.local.php`
 `$settings['cache']['bins']['render'] = 'cache.backend.null';`
--
+But nothing will happen as we need to go to `settings.php` and uncomment the following lines which takes the `settings.local.php` into consideration.
+```
+if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
+  include $app_root . '/' . $site_path . '/settings.local.php';
+}
+```
+- In `default.services.yml`, there are settings to disable cache, enable auto_reload and debug to true. But they won't work unless you rename the file to `services.yml`. But because we're setting up a local dev environment, a better way is to copy these settings to `development.services.yml` file as follows:
+```
+parameters:
+    twig.config:
+        debug: true
+        auto_reload: true
+        cache: false
+```
+
+### Drupal 8 Theming - Part 03 - Gulp.js, Sass, LiveReload
+
+- Download the `Olympos theme` zip file to `sites/d8theming/Assets/`
+- From under `olympos-master` folder:
+... Copy `gulpfile.js` and `package.json` to `sites/d8theming`
+- Copy `themes/custom/endymion`
