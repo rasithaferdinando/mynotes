@@ -27,7 +27,7 @@ This creates an empty theme which you can activate and use from admin panel
 stylesheets-remove:
     - core/themes/.../<file.name>.css
 ```
-- And `Administration //Configuration // Development`. Clear all caches
+- And `Administration // Configuration // Development`. Clear all caches
 
 #### Add CSS and JavaScript files
 - Create `/endymion/endymion.libraries.yml`. This is where to define CSS and JS
@@ -83,6 +83,62 @@ parameters:
 ### Drupal 8 Theming - Part 03 - Gulp.js, Sass, LiveReload
 
 - Download the `Olympos theme` zip file to `sites/d8theming/Assets/`
-- From under `olympos-master` folder:
-... Copy `gulpfile.js` and `package.json` to `sites/d8theming`
-- Copy `themes/custom/endymion`
+- From under `olympos-master` folder:  
+    - Copy `gulpfile.js` and `package.json` to the root
+    - Copy `images`, `js`, `lib` and `sass` to `themes/custom/endymion`
+- Delete `themes/custom/endymion/js/olympos.min.js` -> because we don't need this as we're calling `js/main.js`
+- Go to `themes/custom/endymion/sass/` and remove heading comments as it is required only by Wordpress.
+- Now to setup gulpfile.js. All we have to do is rename paths. Rename `/wp-content/themes/olympos` to `/themes/custom/endymion`
+- For sass task, save it to css directory by defining destination as:
+`.pipe(gulp.dest('./themes/custom/endymion/css'));`
+- For JavsScript, uglify as:
+`.pipe(uglify('main.js'))`
+- Update the watch function to watch:  
+```
+gulp.watch(['./themes/custom/endymion/css/style.css',  
+'./themes/custom/endymion/**/*.twig',  
+'./themes/custom/endymion/js/*.js'], ...  
+```
+- Install all the modules required by gulpfile.js. `npm install`
+- Run `gulp watch`
+- For sass update reload didn't work
+
+
+## Drupal 8 Theming - Part 04 - Blocks and Regions
+
+- Blocks are in Regions
+- `Structure // Block Layout` and click `Demonstrate block regions (Endymion)` to show
+- We're going to define our own regions. In `themes/custom/endymion/endymion.info.yml` add:
+```
+regions:
+    content: 'Main Content'
+    header: 'Header'
+    footer: 'Footer'
+    sidebar: 'Sidebar'
+```
+- Now in `page.html.twig` define regions on our page and remove the ones you dont'
+```
+```
+## Drupal 8 Theming - Part 05 - Let's Update Drupal 8
+- skipping this because we're using the latest version
+
+## Drupal 8 Theming - Part 06 - Theming the Header
+
+#### Define our home page
+- What is being output from `page.html.twig` can be seen in twig debug comments:
+```
+<!-- BEGIN OUTPUT from 'themes/custom/endymion/page.html.twig' -->
+HERE'S THE OUTPUT
+<!-- END OUTPUT from 'themes/custom/endymion/page.html.twig' -->
+```
+- As suggested in twig debug output, we're renaming `page.html.twig` to `page--front.html.twig`
+- Clear cache and reload. The comments will say have the new page.
+- Next the header of that front page. Two ways - 1. The drupal way and 2. the other way (replacing {{ page.header }} with the html without using a separate header file). We're proceeding with the drupal way.
+- If you inspect the header, the html comments will say:  
+`<!-- BEGIN OUTPUT from 'core/themes/stable/templates/block/block--system-branding-block.html.twig' -->`
+- Which means its in `Structure // Blocks // Header // Site Branding`
+- Configure to make changes (i.e. hide logo etc.)
+- What we want to do is to overwrite this file `block--system-branding-block.html.twig`.
+- Eg - We want the logo image link to be different
+- Copy `templates` folder which contains all including `block--system-branding-block.html.twig` to `endymion` so we can customize any template.
+- Clear cache and refresh. The templates will be read by new location now.
