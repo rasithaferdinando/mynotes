@@ -11,7 +11,7 @@
 - `git branch -d <name>` - delete local branch
 - `git log --oneline --all` - shows all including branches
 - `git long --oneline --all --decorate --graph` - shows all with branch information
-- `git merge <my_branch>` - merge my_branch into current branch (master)
+- `git merge <some_branch>` - merge some_branch into currently working branch
 - `git commit --amend` - to change the commit message
 
 ### Git command to change the remote origin
