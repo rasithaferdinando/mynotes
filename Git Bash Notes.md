@@ -5,6 +5,7 @@
 - `git remote add <name> <github url>` - add a remote (i.e. github https url), name it (eg. "origin")
 - `git remote -v` - to see remote repositories (for fetch and push)
 - `git remote set-url origin <git remote url>` - set remote
+- `git remote remove origin` - removes the remote
 - `git push -u` ; -u = upstream, tells it to default to "origin" and "master" for "git push" in future
 - `git push <where> <what>` ; where = remote repo name, what = branch i.e. master
 - `git branch <name>` create, `git branch -a` view / `git checkout -b <name>` create & checkout
@@ -19,11 +20,25 @@
 - git remote set-url origin https://canadagoose.visualstudio.com/Internal%20Web%20Projects/_git/cg-internal-controls-survey`
 
 ### Use remotes with ssh
-- Need to generate ssh key in your computer. Go to ssh in home directory: `cd ~/.` Create if it doesn't exist
-- Run `ssh-keygen` to generate an ssh key. It will create 2 files - `id_rsa` & `id_rsa.pub` (public)
-- Copy the contents of the `id_rsa.pub` file. You can also view it using `cat id_rsa.pub`
-- Go to github page // settings // SSH Keys // Add key // give a title i.e. rferdinando // paste the key // Add
-- Go back to repository page use the ssh key instead of https key
+[Use SSH key authentication - ADO](https://docs.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=vsts)  
+1. generate an ssh key in your computer.  
+	- Go to ssh in home directory `cd ~/.`
+	- Create if it doesn't exist
+	- Run `ssh-keygen -C "rferdinando@canadagoose.com"`
+	- enter a passphrase for best practive. you'll need this to run git commands at the end
+	- this will generate public/private rsa key pair - `id_rsa` & `id_rsa.pub` (public)
+2. you need to copy this to your git account's *SSH public keys* section
+ 	- in ADO you can find it in profile >> securiy >> SSH public keys
+	- in github; github page // settings // SSH Keys // Add key //
+	- go back to command prompt where you created keys, and copy the contents of the `id_rsa.pub` file.
+		- you can view it using `cat id_rsa.pub` and the highlight to copy
+	- Go to *SSH public keys* section and `Add` a new key
+	 	- give a title i.e. rferdinando
+		- then paste the key
+3. Go back to repository page and test from `git pull` to `git push`
+	- make sure remote url is correctly set - if not, remove and add back in
+	- for the remote url, use the ssh url instead of https
+	- you'll be asked for the passphrase, which is the one you created earlier
 
 ## Easiest way to test mqsql connection in cmd (params - user, pass db)
 c:\xampp\mysql\bin\mysql.exe -uictrls -pBXM5qLbpXueuzBZv ictrls
