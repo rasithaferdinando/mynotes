@@ -14,6 +14,7 @@
 - `git long --oneline --all --decorate --graph` - shows all with branch information
 - `git merge <some_branch>` - merge some_branch into currently working branch
 - `git commit --amend` - to change the commit message
+- `git revert <commit id>` - creates a patch to undo the commit
 
 ### Git command to change the remote origin
 - `git remote -v` first then do above command
@@ -42,7 +43,6 @@
   - for the remote url, use the ssh url instead of https
   - you'll be asked for the passphrase, which is the one you created earlier
 
-
 ## Easiest way to test mqsql connection in cmd (params - user, pass db)
 c:\xampp\mysql\bin\mysql.exe -uictrls -pBXM5qLbpXueuzBZv ictrls
 
@@ -64,7 +64,6 @@ c:\xampp\mysql\bin\mysql.exe -uictrls -pBXM5qLbpXueuzBZv ictrls
 - `-` - short 1 letter only switches aka options, `--` - long switches aka options
 - `[--cleanup=<mode>]` - entries for 'mode' will be in options section in manual
 - `[-i | -o] [-S[<keyid>]] [--] [<file>…​]` - possibles: 0001, 0010, 0011 ... 1111
-
 
 ## Node related
 
