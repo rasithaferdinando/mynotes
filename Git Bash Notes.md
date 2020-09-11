@@ -15,6 +15,21 @@
 - `git merge <some_branch>` - merge some_branch into currently working branch
 - `git commit --amend` - to change the commit message
 - `git revert <commit id>` - creates a patch to undo the commit
+- `git merge --abort` - Undo a Merge
+
+### Local merging in PHP storm
+- You want to merge branch A to B
+- checkout branch B
+- VCS >> Git >> Branches >> select branch A >> merge
+- you'll see a green message pop up left bottom saying `Merged A to B`
+
+### Local merging in GitBash
+- You want to merge branch bugfix to master
+- git checkout master (Switches to your master branch)
+- git merge bugfix (git merge --squash bugfix - squashes into 1 commit)
+- git commit
+ref: https://stackoverflow.com/questions/5308816/how-to-use-git-merge-squash
+
 
 ### Git command to change the remote origin
 - `git remote -v` first then do above command
